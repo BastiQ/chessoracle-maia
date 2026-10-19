@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "status": "identity",
+  "model": "maia3-5m.fp16",
+  "strengthMin": 400,
+  "strengthMax": 2200,
+  "curve": [
+    { "estimatedElo": 400, "selfElo": 400, "temperature": 1 },
+    { "estimatedElo": 2200, "selfElo": 2200, "temperature": 1 }
+  ]
+}

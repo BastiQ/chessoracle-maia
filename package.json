@@ -1,0 +1,28 @@
+{
+  "name": "chessoracle-maia",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Maia-3 human-like chess move service for Chess Oracle (AGPL-3.0)",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "tsx scripts/dev-server.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "calibrate": "tsx scripts/calibrate.ts"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "onnxruntime-web": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@vercel/node": "^24.0.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}
