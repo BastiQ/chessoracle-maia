@@ -16,10 +16,10 @@ const SAMPLE: Calibration = {
 };
 
 describe("committed calibration", () => {
-  it("is monotonic and capped at 2200", () => {
+  it("is monotonic, and never serves beyond the measured top or 2600", () => {
     const cal = calibration();
     expect(isMonotonic(cal)).toBe(true);
-    expect(cal.strengthMax).toBe(2200);
+    expect(cal.strengthMax).toBeLessThanOrEqual(2600);
     expect(cal.curve[0].estimatedElo).toBeLessThanOrEqual(cal.strengthMin);
     expect(cal.curve.at(-1)!.estimatedElo).toBeGreaterThanOrEqual(cal.strengthMax);
   });

@@ -6,6 +6,7 @@ import { GET as index } from "../api/index.js";
 import { POST as move } from "../api/move.js";
 import { checkBearer } from "../src/auth.js";
 import { MODEL_SHA256 } from "../src/maia.js";
+import { calibration } from "../src/strength.js";
 
 const TOKEN = "test-token";
 const START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -45,9 +46,9 @@ describe("POST /api/move", () => {
     expect(body.top.map((t: { uci: string }) => t.uci)).toContain(body.uci);
   });
 
-  it("clamps strength above the 2200 cap", async () => {
-    const body = await (await move(req({ fen: START, strength: 3000, opponentElo: 1500 }))).json();
-    const capped = await (await move(req({ fen: START, strength: 2200, opponentElo: 1500 }))).json();
+  it("clamps strength above the calibrated maximum", async () => {
+    const body = await (await move(req({ fen: START, strength: 9999, opponentElo: 1500 }))).json();
+    const capped = await (await move(req({ fen: START, strength: calibration().strengthMax, opponentElo: 1500 }))).json();
     expect(body.selfElo).toBe(capped.selfElo);
     expect(body.temperature).toBe(capped.temperature);
   });

@@ -1,11 +1,221 @@
 {
   "version": 1,
-  "status": "identity",
+  "status": "calibrated",
   "model": "maia3-5m.fp16",
   "strengthMin": 400,
-  "strengthMax": 2200,
+  "strengthMax": 2230,
   "curve": [
-    { "estimatedElo": 400, "selfElo": 400, "temperature": 1 },
-    { "estimatedElo": 2200, "selfElo": 2200, "temperature": 1 }
-  ]
+    {
+      "estimatedElo": 399,
+      "selfElo": 200,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 728,
+      "selfElo": 500,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 972,
+      "selfElo": 800,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1244,
+      "selfElo": 1100,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1417,
+      "selfElo": 1400,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1489,
+      "selfElo": 1700,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1609,
+      "selfElo": 2000,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1652,
+      "selfElo": 2300,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 1723,
+      "selfElo": 2600,
+      "temperature": 1
+    },
+    {
+      "estimatedElo": 2010,
+      "selfElo": 2600,
+      "temperature": 0.5
+    },
+    {
+      "estimatedElo": 2068,
+      "selfElo": 2600,
+      "temperature": 0.25
+    },
+    {
+      "estimatedElo": 2234,
+      "selfElo": 2600,
+      "temperature": 0
+    }
+  ],
+  "method": {
+    "scale": "Stockfish 18 lite-single (the wasm Chess Oracle ships) at UCI_LimitStrength + UCI_Elo, fixed at its label",
+    "anchors": {
+      "sf:1320": "300 ms/move",
+      "sf:1500": "300 ms/move",
+      "sf:1800": "400 ms/move",
+      "sf:2200": "500 ms/move",
+      "sf:2600": "500 ms/move"
+    },
+    "oppoElo": "Maia is told its opponent's nominal rating (anchor label, or the other Maia's selfElo)",
+    "fit": "Bradley–Terry (Elo logistic) MLE over all games; T=1 ratings made monotonic by weighted isotonic regression",
+    "adjudication": {
+      "nodes": 20000,
+      "winCp": 800,
+      "winPlies": 6,
+      "drawCp": 15,
+      "drawPlies": 20,
+      "drawAfterPly": 120,
+      "capPly": 300,
+      "capCp": 300
+    },
+    "reachesMax": true,
+    "games": 1000
+  },
+  "players": {
+    "maia:1100:t1": {
+      "rating": 1244,
+      "se": 40,
+      "games": 160,
+      "score": 68
+    },
+    "maia:1400:t0.5": {
+      "rating": 1544,
+      "se": 56,
+      "games": 48,
+      "score": 18
+    },
+    "maia:1400:t1": {
+      "rating": 1417,
+      "se": 35,
+      "games": 160,
+      "score": 77
+    },
+    "maia:1700:t1": {
+      "rating": 1489,
+      "se": 39,
+      "games": 112,
+      "score": 50
+    },
+    "maia:2000:t1": {
+      "rating": 1609,
+      "se": 53,
+      "games": 72,
+      "score": 22.5
+    },
+    "maia:200:t1": {
+      "rating": 399,
+      "se": 116,
+      "games": 48,
+      "score": 6
+    },
+    "maia:2300:t0.5": {
+      "rating": 1867,
+      "se": 60,
+      "games": 48,
+      "score": 17.5
+    },
+    "maia:2300:t1": {
+      "rating": 1652,
+      "se": 52,
+      "games": 80,
+      "score": 25.5
+    },
+    "maia:2600:t0": {
+      "rating": 2234,
+      "se": 60,
+      "games": 48,
+      "score": 16
+    },
+    "maia:2600:t0.25": {
+      "rating": 2068,
+      "se": 63,
+      "games": 40,
+      "score": 21
+    },
+    "maia:2600:t0.5": {
+      "rating": 2010,
+      "se": 64,
+      "games": 40,
+      "score": 18.5
+    },
+    "maia:2600:t1": {
+      "rating": 1729,
+      "se": 58,
+      "games": 64,
+      "score": 18
+    },
+    "maia:3000:t0": {
+      "rating": 2191,
+      "se": 62,
+      "games": 48,
+      "score": 14
+    },
+    "maia:3000:t1": {
+      "rating": 1712,
+      "se": 81,
+      "games": 32,
+      "score": 7
+    },
+    "maia:500:t1": {
+      "rating": 728,
+      "se": 90,
+      "games": 96,
+      "score": 51
+    },
+    "maia:800:t1": {
+      "rating": 972,
+      "se": 65,
+      "games": 128,
+      "score": 49
+    },
+    "sf:1320": {
+      "rating": 1320,
+      "se": 0,
+      "games": 80,
+      "score": 39
+    },
+    "sf:1500": {
+      "rating": 1500,
+      "se": 0,
+      "games": 184,
+      "score": 104.5
+    },
+    "sf:1800": {
+      "rating": 1800,
+      "se": 0,
+      "games": 208,
+      "score": 133
+    },
+    "sf:2200": {
+      "rating": 2200,
+      "se": 0,
+      "games": 256,
+      "score": 202.5
+    },
+    "sf:2600": {
+      "rating": 2600,
+      "se": 0,
+      "games": 48,
+      "score": 42
+    }
+  }
 }

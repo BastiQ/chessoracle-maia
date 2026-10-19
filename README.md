@@ -21,7 +21,7 @@ This repository is the Corresponding Source of the running service.
 
 - `fen` — the position; Maia moves for the side to move. Validated with chess.js.
 - `strength` — the **target estimated Elo**, clamped to the calibrated range
-  (`calibration/calibration.json` → `strengthMin`…`2200`). The service maps it to
+  (`calibration/calibration.json` → `strengthMin`…`strengthMax`, currently 400–2230). The service maps it to
   Maia's parameters `{selfElo, temperature}` (see *Strength* below).
 - `opponentElo` — the rating Maia believes its opponent has (the player's).
   Optional; defaults to `strength`.
@@ -39,6 +39,28 @@ results become a curve `estimatedElo ⇄ {selfElo, temperature}` in
 [`calibration/calibration.json`](./calibration/calibration.json). See
 [`calibration/REPORT.md`](./calibration/REPORT.md) for the method and results.
 [`src/strength.ts`](./src/strength.ts) interpolates and inverts the curve.
+
+What the calibration found (1,000 games, Stockfish 18 lite-single anchors at
+UCI_Elo 1320/1500/1800/2200/2600):
+
+- At temperature 1 (sampling the raw policy, the most human setting) Maia's
+  strength rises steadily up to selfElo ~1400 (estimated ≈ 1420), then flattens
+  out: selfElo 2600 is only ≈ 1720 on this scale.
+- Above that the path keeps selfElo at 2600 and lowers the temperature: T = 0.5 ≈
+  2010, 0.25 ≈ 2070, 0 (argmax) ≈ 2230. So the served range is **400–2230**.
+  Advanced (2000) plays at T ≈ 0.5; 2200 is nearly argmax.
+- 2500+ is out of reach for the 5M model: even argmax scores 17% against UCI_Elo
+  2600 (selfElo 3000 is no stronger than 2600).
+- The bottom (selfElo 200–500) comes from the self-play ladder, below the
+  lowest anchor, and selfElo 200 is probably below the ratings Maia was trained
+  on, so treat the 400–700 band as approximate.
+
+Reproduce (each batch appends to `calibration/raw/games.jsonl`; `fit` uses all of them):
+
+```bash
+npm run calibrate -- play --match m1400,sf1500,24 --match m500,m800,48 --workers 6
+npm run calibrate -- fit
+```
 
 ## Run and test
 
