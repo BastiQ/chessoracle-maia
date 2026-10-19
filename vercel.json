@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": [
+    "iad1"
+  ],
   "functions": {
     "api/*.ts": {
       "includeFiles": "{models/**,calibration/calibration.json,node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{wasm,mjs}}",
@@ -7,5 +10,10 @@
       "maxDuration": 30
     }
   },
-  "rewrites": [{ "source": "/", "destination": "/api" }]
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api"
+    }
+  ]
 }
